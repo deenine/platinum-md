@@ -1,6 +1,6 @@
 <template>
   <div>
-  
+
     <b-modal @ok="editTrack" ref="edit-track" title="Edit Track">
       <b-row class="my-1">
         <b-col sm="2">
@@ -27,7 +27,7 @@
         </b-col>
       </b-row>
     </b-modal>
-    
+
     <b-container class="toolbar py-2 m-0 sticky-top">
       <b-row align-v="center">
         <b-col cols="1">
@@ -43,7 +43,7 @@
         </b-col>
       </b-row>
     </b-container>
-    
+
     <b-table
       selectable
       striped
@@ -60,19 +60,19 @@
         <b-spinner class="align-middle"></b-spinner>
         <strong>Loading...</strong>
       </div>
-      
+
       <template v-slot:cell(trackNo)="data">
         <div>
           <h5 class="mb-0"><b-badge>{{ data.item.trackNo }}</b-badge></h5>
         </div>
       </template>
-      
+
       <template v-slot:cell(bitrate)="data">
         <div class="text-right">
           <b-badge variant="success" class="text-uppercase">{{ data.item.bitrate }} {{ data.item.codec }}</b-badge>
         </div>
       </template>
-      
+
       <template v-slot:cell(time)="data">
         <div class="text-right">
           {{ data.item.time | timeFormat }}
@@ -84,9 +84,9 @@
           <a @click="showEditModal(data.item)"><font-awesome-icon icon="edit"></font-awesome-icon></a>
         </div>
       </template>
-      
+
     </b-table>
- 
+
   </div>
 </template>
 
@@ -201,6 +201,7 @@ export default {
                   // filter forbidden filesystem characters
                   // Windows list from: https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file
                   if (os.platform() === 'win32') {
+                    artist = (artist === 'Untitled') ? artist : filePath
                     artist = (artist !== null) ? artist.substring(0, 50).replace(/[<>:"/\\|?*]/g, '_') : ''
                     title = (title !== null) ? title.substring(0, 50).replace(/[<>:"/\\|?*]/g, '_') : ''
                   } else {
